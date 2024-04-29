@@ -1,0 +1,156 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|c:\\users\\vanac\\source\\repos\\levenshteinautomaton\\levenshteinautomaton\\subsetmachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|solutionrelative:levenshteinautomaton\\subsetmachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|c:\\users\\vanac\\source\\repos\\levenshteinautomaton\\levenshteinautomaton\\set.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|solutionrelative:levenshteinautomaton\\set.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|c:\\users\\vanac\\source\\repos\\levenshteinautomaton\\levenshteinautomaton\\lenvstnnfa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|solutionrelative:levenshteinautomaton\\lenvstnnfa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|c:\\users\\vanac\\source\\repos\\levenshteinautomaton\\levenshteinautomaton\\lenvstndfa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|solutionrelative:levenshteinautomaton\\lenvstndfa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|c:\\users\\vanac\\source\\repos\\levenshteinautomaton\\levenshteinautomaton\\automatonsearch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|solutionrelative:levenshteinautomaton\\automatonsearch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8C6425B4-FADB-4B1F-9523-51F83DF671E1}|Traverser\\Traverser.csproj|c:\\users\\vanac\\source\\repos\\levenshteinautomaton\\traverser\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8C6425B4-FADB-4B1F-9523-51F83DF671E1}|Traverser\\Traverser.csproj|solutionrelative:traverser\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|c:\\users\\vanac\\source\\repos\\levenshteinautomaton\\levenshteinautomaton\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|solutionrelative:levenshteinautomaton\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|c:\\users\\vanac\\source\\repos\\levenshteinautomaton\\levenshteinautomaton\\performance\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B16C742B-0DBF-4874-9705-F35E7F7D81FC}|LevenshteinAutomaton\\LevenshteinAutomaton.csproj|solutionrelative:levenshteinautomaton\\performance\\manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Set.cs",
+              "DocumentMoniker": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\Set.cs",
+              "RelativeDocumentMoniker": "LevenshteinAutomaton\\Set.cs",
+              "ToolTip": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\Set.cs",
+              "RelativeToolTip": "LevenshteinAutomaton\\Set.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAmwDIAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T12:03:05.229Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LenvstnNFA.cs",
+              "DocumentMoniker": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\LenvstnNFA.cs",
+              "RelativeDocumentMoniker": "LevenshteinAutomaton\\LenvstnNFA.cs",
+              "ToolTip": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\LenvstnNFA.cs",
+              "RelativeToolTip": "LevenshteinAutomaton\\LenvstnNFA.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T12:03:02.453Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SubsetMachine.cs",
+              "DocumentMoniker": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\SubsetMachine.cs",
+              "RelativeDocumentMoniker": "LevenshteinAutomaton\\SubsetMachine.cs",
+              "ToolTip": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\SubsetMachine.cs",
+              "RelativeToolTip": "LevenshteinAutomaton\\SubsetMachine.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAAmwBYAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T11:58:21.641Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LenvstnDFA.cs",
+              "DocumentMoniker": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\LenvstnDFA.cs",
+              "RelativeDocumentMoniker": "LevenshteinAutomaton\\LenvstnDFA.cs",
+              "ToolTip": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\LenvstnDFA.cs",
+              "RelativeToolTip": "LevenshteinAutomaton\\LenvstnDFA.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T11:55:53.009Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AutomatonSearch.cs",
+              "DocumentMoniker": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\AutomatonSearch.cs",
+              "RelativeDocumentMoniker": "LevenshteinAutomaton\\AutomatonSearch.cs",
+              "ToolTip": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\AutomatonSearch.cs",
+              "RelativeToolTip": "LevenshteinAutomaton\\AutomatonSearch.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T10:47:07.702Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Manager.cs",
+              "DocumentMoniker": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\Performance\\Manager.cs",
+              "RelativeDocumentMoniker": "LevenshteinAutomaton\\Performance\\Manager.cs",
+              "ToolTip": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\Performance\\Manager.cs",
+              "RelativeToolTip": "LevenshteinAutomaton\\Performance\\Manager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T11:52:11.12Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\Traverser\\Program.cs",
+              "RelativeDocumentMoniker": "Traverser\\Program.cs",
+              "ToolTip": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\Traverser\\Program.cs",
+              "RelativeToolTip": "Traverser\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGgAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T10:50:08.467Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\Program.cs",
+              "RelativeDocumentMoniker": "LevenshteinAutomaton\\Program.cs",
+              "ToolTip": "C:\\Users\\vanac\\source\\repos\\LevenshteinAutomaton\\LevenshteinAutomaton\\Program.cs",
+              "RelativeToolTip": "LevenshteinAutomaton\\Program.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAAgwCsAAABBAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-28T13:30:23.854Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -34,6 +34,8 @@ namespace LevenshteinAutomaton
             //Build Trie dictionary based on library.
             TrieDictionary dict = TrieDictionary.BuildTrieDictionary(wordLib.GetEnumerator());
 
+            IEnumerable<string> results3 = AutomatonSearch.search("rhanna", MaxDist, dict).Distinct();
+
             Stopwatch st = new Stopwatch();
             int hits = 0;
             st.Start();

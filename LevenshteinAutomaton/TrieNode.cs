@@ -67,6 +67,8 @@ namespace LevenshteinAutomaton
                 trieDict.AddTrieNode(it.Current);
             }
 
+            trieDict.AddTrieNode("rihanna");
+
             return trieDict;
         }
     }
