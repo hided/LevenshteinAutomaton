@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevenshteinAutomaton", "LevenshteinAutomaton\LevenshteinAutomaton.csproj", "{B16C742B-0DBF-4874-9705-F35E7F7D81FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LevenshteinAutomaton", "LevenshteinAutomaton\LevenshteinAutomaton.csproj", "{B16C742B-0DBF-4874-9705-F35E7F7D81FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traverser", "Traverser\Traverser.csproj", "{8C6425B4-FADB-4B1F-9523-51F83DF671E1}"
 EndProject

@@ -13,7 +13,7 @@ namespace LevenshteinAutomaton
             if (dfa.final.Contains(start) && dictNode.End)
                 output.Add(dictNode.Key);
 
-            Set<char> inputs = new Set<char>();
+            HashSet<char> inputs = new HashSet<char>();
             for (char ch = 'a'; ch <= 'z'; ++ch)
             {
                 KeyValuePair<int, char> pair = new KeyValuePair<int, char>(start, ch);
@@ -60,7 +60,7 @@ namespace LevenshteinAutomaton
             if (dfa.final.Contains(start) && dictNode.End)
                 output.Add(dictNode.Key);
 
-            Set<char> inputs = new Set<char>();
+            HashSet<char> inputs = new HashSet<char>();
             for (char ch = 'a'; ch <= 'z'; ++ch)
             {
                 KeyValuePair<int, char> pair = new KeyValuePair<int, char>(start, ch);

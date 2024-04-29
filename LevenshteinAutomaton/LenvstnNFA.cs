@@ -1,9 +1,10 @@
 ﻿using System;
 using SCG = System.Collections.Generic;
-using C5;
+
 
 using state = System.Int32;
 using input = System.Char;
+using System.Collections.Generic;
 
 namespace LevenshteinAutomaton
 {
@@ -13,9 +14,9 @@ namespace LevenshteinAutomaton
     class LenvstnNFA
     {
         public state initial;
-        public Set<state> final;
+        public HashSet<state> final;
         // Inputs this NFA responds to
-        public SortedArray<input> inputs;
+        public SortedSet<input> inputs; // SORTEDARRAY
         public input[][] transTable;
         
         private int size;
@@ -41,13 +42,13 @@ namespace LevenshteinAutomaton
         /// <param name="size_">Amount of states.</param>
         /// <param name="initial_">Initial state.</param>
         /// <param name="final_">Final state.</param>
-        private LenvstnNFA(int size_, state initial_, Set<state> final_)
+        private LenvstnNFA(int size_, state initial_, HashSet<state> final_)
         {
             initial = initial_;
             final = final_;
             size = size_;
 
-            inputs = new SortedArray<input>();
+            inputs = new SortedSet<input>();
 
             // Initializes transTable with an "empty graph", no transitions between its
             // states
@@ -69,7 +70,7 @@ namespace LevenshteinAutomaton
             int height = maxDist + 1;
             int size = width * height;
 
-            Set<state> final = new Set<state>();
+            HashSet<state> final = new HashSet<state>();
             for (int i = 1; i <= height; ++i)
                 final.Add(i * width - 1);
             LenvstnNFA nfa = new LenvstnNFA(size, 0, final);
@@ -119,9 +120,9 @@ namespace LevenshteinAutomaton
         /// <param name="states"></param>
         /// <param name="inp"></param>
         /// <returns></returns>
-        public Set<state> Move(Set<state> states, input inp)
+        public HashSet<state> Move(HashSet<state> states, input inp)
         {
-            Set<state> result = new Set<state>();
+            HashSet<state> result = new HashSet<state>();
 
             // The result to return include every state reachable by inp or Epsilon or Any. 
             // But if parameter inp is a normal letter, will only return the result when truly found one bridge which equals to inp.

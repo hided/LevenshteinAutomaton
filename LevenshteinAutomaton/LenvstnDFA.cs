@@ -14,14 +14,14 @@ namespace LevenshteinAutomaton
         // Start state
         public state start;
         // Set of final states
-        public Set<state> final;
+        public HashSet<state> final;
         // Transition table
         public SortedList<KeyValuePair<state, input>, state> transTable;
         public Dictionary<state, state> defaultTrans;
 
         public LenvstnDFA()
         {
-            final = new Set<state>();
+            final = new HashSet<state>();
 
             defaultTrans = new Dictionary<state, state>();
             transTable = new SortedList<KeyValuePair<state, input>, state>(new Comparer());

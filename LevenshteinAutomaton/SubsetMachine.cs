@@ -32,18 +32,18 @@ namespace LevenshteinAutomaton
         LenvstnDFA dfa = new LenvstnDFA();
 
         // Sets of NFA states which is represented by some DFA state
-        Set<Set<state>> markedStates = new Set<Set<state>>();
-        Set<Set<state>> unmarkedStates = new Set<Set<state>>();
+        HashSet<HashSet<state>> markedStates = new HashSet<HashSet<state>>();
+        HashSet<HashSet<state>> unmarkedStates = new HashSet<HashSet<state>>();
 
         // Gives a number to each state in the DFA
-        Dictionary<Set<state>, state> dfaStateNum = new Dictionary<Set<state>, state>();
+        Dictionary<HashSet<state>, state> dfaStateNum = new Dictionary<HashSet<state>, state>();
 
-        Set<state> nfaInitial = new Set<state>();
+        HashSet<state> nfaInitial = new HashSet<state>();
         nfaInitial.Add(nfa.initial);
 
         // Initially, EpsilonClosure(nfa.initial) is the only state in the DFAs states
         // and it's unmarked.
-        Set<state> first = EpsilonClosure(nfa, nfaInitial);
+        HashSet<state> first = EpsilonClosure(nfa, nfaInitial);
         unmarkedStates.Add(first);
 
         // The initial dfa state
@@ -53,8 +53,8 @@ namespace LevenshteinAutomaton
 
         while (unmarkedStates.Count != 0)
         {
-            // Takes out one unmarked state and posteriorly mark it.
-            Set<state> aState = unmarkedStates.Choose();
+                // Takes out one unmarked state and posteriorly mark it.
+                HashSet<state> aState = unmarkedStates.First();
 
             // Removes from the unmarked set.
             unmarkedStates.Remove(aState);
@@ -73,8 +73,8 @@ namespace LevenshteinAutomaton
             while (iE.MoveNext())
             {
                 // Next state
-                Set<state> next = EpsilonClosure(nfa, nfa.Move(aState, iE.Current));
-                if (next.IsEmpty) continue;
+                HashSet<state> next = EpsilonClosure(nfa, nfa.Move(aState, iE.Current));
+                if (next.Count == 0) continue;
 
                 // If we haven't examined this state before, add it to the unmarkedStates,
                 // and make up a new number for it.
@@ -108,15 +108,15 @@ namespace LevenshteinAutomaton
     /// <param name="nfa"></param>
     /// <param name="states"></param>
     /// <returns></returns>
-    static Set<state> EpsilonClosure(LenvstnNFA nfa, Set<state> states)
+    static HashSet<state> EpsilonClosure(LenvstnNFA nfa, HashSet<state> states)
     {
-        if (states.IsEmpty) return states;
+        if (states.Count == 0) return states;
 
         // Push all states onto a stack
         Stack<state> uncheckedStack = new Stack<state>(states);
 
         // Initialize EpsilonClosure(states) to states
-        Set<state> epsilonClosure = states;
+        HashSet<state> epsilonClosure = states;
 
         while (uncheckedStack.Count != 0)
         {
