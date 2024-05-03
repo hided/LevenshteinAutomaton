@@ -5,9 +5,42 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Diagnostics;
+using Traverser;
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Running;
+using BenchmarkDotNet.Jobs;
+using BenchmarkDotNet.Configs;
 
 namespace LevenshteinAutomaton
 {
+
+    [MemoryDiagnoser]
+    public class MyBenchmark
+    {
+        private List<string> wordLib;
+
+        [GlobalSetup]
+        public void GlobalSetup()
+        {
+            //Regex rgx = new Regex("[^a-zA-Z]");
+            //wordLib = System.IO.File.ReadAllLines(@"Data\WordLib.txt").ToList().Select(word => rgx.Replace(word, "").ToLowerInvariant()).ToList();
+        }
+
+        [Benchmark]
+        public void TrieDictOriginal()
+        {
+            string s = "aaa";
+            //TrieDictionary dict = TrieDictionary.BuildTrieDictionary(wordLib.GetEnumerator());
+        }
+        [Benchmark]
+        public void ImmutableNodes()
+        {
+            string s = "bbbbbbb";
+            //var generator = new NodeGenerator();
+            //var collection = generator.Generate(wordLib);
+        }
+    }
+
     /// <summary>
     /// Implements a levenshtein automaton to search all the words in dictionary whose distance is smaller or equal than given value from given word.
     /// </summary>
@@ -19,6 +52,19 @@ namespace LevenshteinAutomaton
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            //BenchmarkRunner.Run<MyBenchmark>("--iterationCount 1");
+
+            //BenchmarkRunner
+            //.Run<MyBenchmark>(
+            //    ManualConfig
+            //        .Create(DefaultConfig.Instance)
+            //        .AddJob(Job.Default
+            //        .WithIterationCount(1)
+            //        .WithWarmupCount(0)
+            //        ));
+
+            //return;
+
             //Load word libary
             Regex rgx = new Regex("[^a-zA-Z]");
             IEnumerable<string> wordLib = System.IO.File.ReadAllLines(@"Data\WordLib.txt").ToList().Select(word => rgx.Replace(word, "").ToLowerInvariant());
@@ -30,6 +76,27 @@ namespace LevenshteinAutomaton
             //Load test cases
             IEnumerable<string> testcase1 = System.IO.File.ReadAllLines(@"Data\TestCase_2_WordsToSearch.txt").ToList().Select(word => rgx.Replace(word, "").ToLowerInvariant());
 
+
+            Console.WriteLine("-- IMPROVED --");
+            //var generator = new NodeGenerator();
+            //var collection = generator.Generate(wordLib);
+            //collection.WriteToDisk();
+
+            var collection = NodeCollection.FromDisk();
+
+
+            var matchz = AutomatonSearch2.search("food", 2, collection);
+            var sw = Stopwatch.StartNew();
+
+            foreach (string word in testcase1)
+            {
+                var matches = AutomatonSearch2.search(word, 2, collection);
+            }
+
+            sw.Stop();
+            Console.WriteLine("elapsed: " + sw.ElapsedMilliseconds);
+
+            return;
             Console.WriteLine("----Automaton way----");
             //Build Trie dictionary based on library.
             TrieDictionary dict = TrieDictionary.BuildTrieDictionary(wordLib.GetEnumerator());

@@ -16,7 +16,8 @@ namespace LevenshteinAutomaton
         // Set of final states
         public HashSet<state> final;
         // Transition table
-        public SortedList<KeyValuePair<state, input>, state> transTable;
+        //public SortedList<KeyValuePair<state, input>, state> transTable;
+        public Dictionary<state, List<KeyValuePair<input, state>>> transTable = new();
         public Dictionary<state, state> defaultTrans;
 
         public LenvstnDFA()
@@ -24,7 +25,7 @@ namespace LevenshteinAutomaton
             final = new HashSet<state>();
 
             defaultTrans = new Dictionary<state, state>();
-            transTable = new SortedList<KeyValuePair<state, input>, state>(new Comparer());
+            //transTable = new SortedList<KeyValuePair<state, input>, state>(new Comparer());
         }
 
 
@@ -40,11 +41,11 @@ namespace LevenshteinAutomaton
 
             Console.Write("\n\n");
 
-            foreach (KeyValuePair<KeyValuePair<state, input>, state> kvp in transTable)
-                Console.Write("Trans[{0}, {1}] = {2}\n", kvp.Key.Key, kvp.Key.Value, kvp.Value);
+            //foreach (KeyValuePair<KeyValuePair<state, input>, state> kvp in transTable)
+            //    Console.Write("Trans[{0}, {1}] = {2}\n", kvp.Key.Key, kvp.Key.Value, kvp.Value);
 
-            foreach (KeyValuePair<state, state> kvp in defaultTrans)
-                Console.Write("Default trans[{0}] = {1}\n", kvp.Key, kvp.Value);
+            //foreach (KeyValuePair<state, state> kvp in defaultTrans)
+            //    Console.Write("Default trans[{0}] = {1}\n", kvp.Key, kvp.Value);
         }
     }
 

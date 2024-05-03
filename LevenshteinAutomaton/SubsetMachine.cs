@@ -67,36 +67,41 @@ namespace LevenshteinAutomaton
             if (aState.Where(state => nfa.final.Contains(state)).Count() > 0)
                 dfa.final.Add(dfaStateNum[aState]);
 
-            IEnumerator<input> iE = nfa.inputs.GetEnumerator();
-
-            // For each input symbol the NFA knows...
-            while (iE.MoveNext())
-            {
-                // Next state
-                HashSet<state> next = EpsilonClosure(nfa, nfa.Move(aState, iE.Current));
-                if (next.Count == 0) continue;
-
-                // If we haven't examined this state before, add it to the unmarkedStates,
-                // and make up a new number for it.
-                if (!unmarkedStates.Contains(next) && !markedStates.Contains(next))
+                // For each input symbol the NFA knows..
+                foreach (var input in nfa.inputs)
                 {
-                    unmarkedStates.Add(next);
-                    dfaStateNum.Add(next, GenNewState());
-                }
+                    // Next state
+                    HashSet<state> next = EpsilonClosure(nfa, nfa.Move(aState, input));
+                    if (next.Count == 0) continue;
 
-                if (iE.Current != (char)LenvstnNFA.Constants.Any && iE.Current != (char)LenvstnNFA.Constants.EpsilonAny)
-                {
-                    KeyValuePair<state, input> transition = new KeyValuePair<state, input>(dfaStateNum[aState], iE.Current);
-                    dfa.transTable[transition] = dfaStateNum[next];
-                }
-                else
-                {
-                    if (!dfa.defaultTrans.ContainsKey(dfaStateNum[aState])) 
+                    // If we haven't examined this state before, add it to the unmarkedStates,
+                    // and make up a new number for it.
+                    if (!unmarkedStates.Contains(next) && !markedStates.Contains(next))
                     {
-                        dfa.defaultTrans.Add(dfaStateNum[aState], dfaStateNum[next]);
+                        unmarkedStates.Add(next);
+                        dfaStateNum.Add(next, GenNewState());
+                    }
+
+                    if (input != (char)LenvstnNFA.Constants.Any && input != (char)LenvstnNFA.Constants.EpsilonAny)
+                    {
+                        state start = dfaStateNum[aState];
+                        if (!dfa.transTable.TryGetValue(start, out var items))
+                        {
+                            items = new();
+                            dfa.transTable[start] = items;
+                        }
+
+                        var kvp = new KeyValuePair<input, state>(input, dfaStateNum[next]);
+                        items.Add(kvp);
+                    }
+                    else
+                    {
+                        if (!dfa.defaultTrans.ContainsKey(dfaStateNum[aState]))
+                        {
+                            dfa.defaultTrans.Add(dfaStateNum[aState], dfaStateNum[next]);
+                        }
                     }
                 }
-            }
         }
 
         return dfa;

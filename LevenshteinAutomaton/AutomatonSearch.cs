@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NoAlloq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +15,18 @@ namespace LevenshteinAutomaton
                 output.Add(dictNode.Key);
 
             HashSet<char> inputs = new HashSet<char>();
-            for (char ch = 'a'; ch <= 'z'; ++ch)
-            {
-                KeyValuePair<int, char> pair = new KeyValuePair<int, char>(start, ch);
-                if (dfa.transTable.ContainsKey(pair))
-                {
-                    inputs.Add(ch);
-                    if (dictNode.Children.ContainsKey(ch))
-                    {
-                        DFSserach(dfa, dfa.transTable[pair], dictNode.Children[ch], output);
-                    }
-                }
-            }
+            //for (char ch = 'a'; ch <= 'z'; ++ch)
+            //{
+            //    KeyValuePair<int, char> pair = new KeyValuePair<int, char>(start, ch);
+            //    if (dfa.transTable.ContainsKey(pair))
+            //    {
+            //        inputs.Add(ch);
+            //        if (dictNode.Children.ContainsKey(ch))
+            //        {
+            //            DFSserach(dfa, dfa.transTable[pair], dictNode.Children[ch], output);
+            //        }
+            //    }
+            //}
 
             if (dfa.defaultTrans.ContainsKey(start))
             {
@@ -55,45 +56,59 @@ namespace LevenshteinAutomaton
     {
         public static NodeCollection nodes;
 
-        private static void DFSserach(LenvstnDFA dfa, int start, TrieNode dictNode, List<string> output)
+        private static void DFSserach(LenvstnDFA dfa, int start, ImmutableNode node, List<string> output)
         {
-            if (dfa.final.Contains(start) && dictNode.End)
-                output.Add(dictNode.Key);
-
-            HashSet<char> inputs = new HashSet<char>();
-            for (char ch = 'a'; ch <= 'z'; ++ch)
+            if (dfa.final.Contains(start) && node.IsEnd)
             {
-                KeyValuePair<int, char> pair = new KeyValuePair<int, char>(start, ch);
-                if (dfa.transTable.ContainsKey(pair))
+                List<char> result = new();
+                var currNode = node;
+                while (currNode.ParentPos >= 0)
                 {
-                    inputs.Add(ch);
-                    if (dictNode.Children.ContainsKey(ch))
-                    {
-                        DFSserach(dfa, dfa.transTable[pair], dictNode.Children[ch], output);
-                    }
+                    result.Add(currNode.KeyChar);
+                    currNode = nodes.GetParentOf(currNode);
+                }
+                output.Add(new string(result.Reverse<char>().ToArray()));
+            }
+
+            var children = nodes.GetChildrenOf(node);
+            HashSet<char> inputs = new HashSet<char>();
+
+            if (dfa.transTable.TryGetValue(start, out var transitions))
+            {
+                foreach (var kvp in transitions)
+                {
+                    char c = kvp.Key;
+                    inputs.Add(c);
+                    var match = children.FirstOrDefault(x => x.KeyChar == c);
+                    if (match.Equals(default))
+                        continue;
+
+                    DFSserach(dfa, kvp.Value, match, output);
                 }
             }
+            
 
             if (dfa.defaultTrans.ContainsKey(start))
             {
-                foreach (char input in dictNode.Children.Keys)
+                foreach (var child in children)
                 {
-                    if (!inputs.Contains(input))
+                    if (!inputs.Contains(child.KeyChar))
                     {
-                        DFSserach(dfa, dfa.defaultTrans[start], dictNode.Children[input], output);
+                        DFSserach(dfa, dfa.defaultTrans[start], child, output);
                     }
                 }
             }
         }
 
-        public static IEnumerable<string> search(string oriWord, int maxDist, TrieDictionary dict)
+        public static IEnumerable<string> search(string oriWord, int maxDist, NodeCollection collection)
         {
             LenvstnNFA nfa = LenvstnNFA.BuildNFA(oriWord, maxDist);
             //nfa.Show();
             LenvstnDFA dfa = SubsetMachine.SubsetConstruct(nfa);
             //dfa.Show();
             List<string> output = new List<string>();
-            DFSserach(dfa, dfa.start, dict.Root, output);
+            nodes = collection;
+            DFSserach(dfa, dfa.start, collection.RootNode, output);
             return output;
         }
     }
