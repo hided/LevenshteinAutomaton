@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using state = System.Int32;
-using input = System.Char;
+using input = System.Byte;
 
 namespace LevenshteinAutomaton
 {
@@ -82,7 +82,7 @@ namespace LevenshteinAutomaton
                         dfaStateNum.Add(next, GenNewState());
                     }
 
-                    if (input != (char)LenvstnNFA.Constants.Any && input != (char)LenvstnNFA.Constants.EpsilonAny)
+                    if (input != Constants.Any && input != Constants.EpsilonAny)
                     {
                         state start = dfaStateNum[aState];
                         if (!dfa.transTable.TryGetValue(start, out var items))
@@ -133,7 +133,7 @@ namespace LevenshteinAutomaton
             // For each state u with an edge from t to u labeled Epsilon
             foreach (input input in nfa.transTable[t])
             {
-                if (input == (char)LenvstnNFA.Constants.EpsilonAny)
+                if (input == Constants.EpsilonAny)
                 {
                     state u = Array.IndexOf(nfa.transTable[t], input, i);
 

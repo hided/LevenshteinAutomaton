@@ -60,24 +60,24 @@ namespace LevenshteinAutomaton
         {
             if (dfa.final.Contains(start) && node.IsEnd)
             {
-                List<char> result = new();
+                List<byte> result = new();
                 var currNode = node;
-                while (currNode.ParentPos >= 0)
+                while (currNode.ParentPos != UInt24.MaxValue)
                 {
                     result.Add(currNode.KeyChar);
                     currNode = nodes.GetParentOf(currNode);
                 }
-                output.Add(new string(result.Reverse<char>().ToArray()));
+                output.Add(new string(result.Select(b => (char)b).Reverse().ToArray()));
             }
 
             var children = nodes.GetChildrenOf(node);
-            HashSet<char> inputs = new HashSet<char>();
+            HashSet<byte> inputs = new HashSet<byte>();
 
             if (dfa.transTable.TryGetValue(start, out var transitions))
             {
                 foreach (var kvp in transitions)
                 {
-                    char c = kvp.Key;
+                    byte c = kvp.Key;
                     inputs.Add(c);
                     var match = children.FirstOrDefault(x => x.KeyChar == c);
                     if (match.Equals(default))

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using state = System.Int32;
-using input = System.Char;
+using input = System.Byte;
 
 namespace LevenshteinAutomaton
 {

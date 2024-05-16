@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace Traverser
 {
+    public class UInt24
+    {
+        public static int MaxValue = 16_777_215;
+    }
+
     public class NodeGenerator
     {
         private readonly List<ImmutableNode> _closedNodes = [];
@@ -47,14 +53,8 @@ namespace Traverser
                 currentNode = CloseChildNodes(currentNode);
             }
 
-            var closedRoot = new ImmutableNode
-            {
-                KeyChar = char.MinValue,
-                ChildStartPos = rootNode.ChildStartIndex,
-                ChildCount = (byte)rootNode.Children.Count,
-                IsEnd = false,
-                ParentPos = -1
-            };
+            var closedRoot = new ImmutableNode(rootNode.ChildStartIndex, rootNode.Children.Count, char.MinValue, false);
+            closedRoot.SetParentPos(UInt24.MaxValue);
             _closedNodes.Add(closedRoot);
 
             // update parents
@@ -65,7 +65,7 @@ namespace Traverser
 
                 for (int j = 0; j < node.ChildCount; j++)
                 {
-                    array[node.ChildStartPos + j].ParentPos = i;
+                    array[node.ChildPos + j].SetParentPos(i);
                 }
             }
 
@@ -78,14 +78,8 @@ namespace Traverser
             currentNode.ChildStartIndex = _closedNodes.Count;
             foreach (var childNode in currentNode.Children)
             {
-                var closedNode = new ImmutableNode
-                {
-                    KeyChar = childNode.Key,
-                    ChildStartPos = childNode.ChildStartIndex,
-                    ChildCount = (byte)childNode.Children.Count,
-                    IsEnd = childNode.IsEnd,
-                };
-                
+                var closedNode = new ImmutableNode(childNode.ChildStartIndex, childNode.Children.Count, childNode.Key, childNode.IsEnd);
+
                 _closedNodes.Add(closedNode);
 
                 childNode.Children.Clear();
@@ -100,30 +94,30 @@ namespace Traverser
     {
         static ImmutableNode[] GetSampleData()
         {
-            return new[]
-            {
-                new ImmutableNode
-                {
-                    ChildCount = 5,
-                    ChildStartPos = 1,
-                    IsEnd = true,
-                    ParentPos = 123,
-                },
-                new ImmutableNode
-                {
-                    ChildCount = 55,
-                    ChildStartPos = 11,
-                    IsEnd = false,
-                    ParentPos = 1234,
-                },
-                new ImmutableNode
-                {
-                    ChildCount = 6,
-                    ChildStartPos = 7,
-                    IsEnd = true,
-                    ParentPos = 456,
-                },
-            };
+            return new ImmutableNode[0];
+            //{
+                //new ImmutableNode
+                //{
+                //    ChildCount = 5,
+                //    ChildStartPos = 1,
+                //    IsEnd = true,
+                //    ParentPos = 123,
+                //},
+                //new ImmutableNode
+                //{
+                //    ChildCount = 55,
+                //    ChildStartPos = 11,
+                //    IsEnd = false,
+                //    ParentPos = 1234,
+                //},
+                //new ImmutableNode
+                //{
+                //    ChildCount = 6,
+                //    ChildStartPos = 7,
+                //    IsEnd = true,
+                //    ParentPos = 456,
+                //},
+            //};
         }
 
         static void WriteToDisk(ImmutableNode[] nodes)
@@ -132,6 +126,7 @@ namespace Traverser
 
 
             var byteSpan = MemoryMarshal.Cast<ImmutableNode, byte>(nodes);
+            var byteSpan2 = MemoryMarshal.AsBytes<ImmutableNode>(nodes); // TODO: test if same as above
             fs.Write(byteSpan);
 
         }
@@ -144,8 +139,6 @@ namespace Traverser
             var array = new ImmutableNode[fi.Length / sz];
             var byteSpan = MemoryMarshal.Cast<ImmutableNode, byte>(array);
 
-            MemoryMarshal.CreateSpan(ref array[0], 3);
-
             using var fs = fi.OpenRead();
             fs.Read(byteSpan);
 
@@ -154,7 +147,8 @@ namespace Traverser
 
         static void Main(string[] args)
         {
-
+            int a = 0, b = 0;
+            int c = a | b;
             //Span<string> span;
 
             var data = GetSampleData();
@@ -217,7 +211,7 @@ namespace Traverser
 
         public Span<ImmutableNode> GetChildrenOf(ImmutableNode node)
         {
-            return Nodes.AsSpan().Slice(node.ChildStartPos, node.ChildCount);
+            return Nodes.AsSpan().Slice(node.ChildPos, node.ChildCount);
         }
 
         public void WriteToDisk()
@@ -259,29 +253,78 @@ namespace Traverser
         }
     }
 
-    [StructLayout(LayoutKind.Explicit, CharSet = CharSet.Auto)]
+    //[StructLayout(LayoutKind.Explicit, CharSet = CharSet.Auto)]
+    //public struct ImmutableNode
+    //{
+    //    [FieldOffset(0)]
+    //    public int ChildStartPos;
+
+    //    [FieldOffset(4)]
+    //    public char KeyChar; // TODO: byte
+
+    //    [FieldOffset(6)]
+    //    public byte ChildCount;
+
+    //    [FieldOffset(7)]
+    //    public bool IsEnd;
+
+    //    [FieldOffset(8)]
+    //    public int ParentPos;
+
+    //    public override string ToString()
+    //    {
+    //        return $"{KeyChar}";
+    //    }
+    //}
+
+    /// <summary>
+    /// Data1:
+    /// [0-6] ChildCount
+    /// [7] IsEnd
+    /// [8-31] ChildPos
+    /// 
+    /// Data2:
+    /// [0-7] KeyChar
+    /// [8-31] ParentPos
+    /// </summary>
+    [StructLayout(LayoutKind.Explicit)]
     public struct ImmutableNode
     {
         [FieldOffset(0)]
-        public int ChildStartPos;
+        public int Data1;
 
         [FieldOffset(4)]
-        public char KeyChar; // TODO: byte
+        public int Data2;
 
-        [FieldOffset(6)]
-        public byte ChildCount;
+        [FieldOffset(4)]
+        public byte KeyChar;
 
-        [FieldOffset(7)]
-        public bool IsEnd;
+        public readonly int ChildPos => Data1 >>> 8;
+        public readonly int ChildCount => Data1 & 0x7F;
+        public readonly bool IsEnd => (Data1 & 0x80) != 0;
+        public readonly int ParentPos => Data2 >>> 8;
 
-        [FieldOffset(8)]
-        public int ParentPos;
+        public ImmutableNode()
+        {
+            
+        }
+
+        public ImmutableNode(int childPos, int childCount, char keyChar, bool isEnd)
+        {
+            if (isEnd)
+                childCount += 128; // set highest order bit
+            Data1 = (childPos << 8) | childCount;
+            KeyChar = (byte)keyChar;
+        }
+
+        public void SetParentPos(int value)
+        {
+            Data2 |= value << 8;
+        }
 
         public override string ToString()
         {
-            return $"{KeyChar}";
+            return $"{(char)KeyChar}";
         }
     }
-
-    
 }

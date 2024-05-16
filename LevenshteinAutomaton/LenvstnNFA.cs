@@ -3,11 +3,18 @@ using SCG = System.Collections.Generic;
 
 
 using state = System.Int32;
-using input = System.Char;
+using input = System.Byte;
 using System.Collections.Generic;
 
 namespace LevenshteinAutomaton
 {
+    class Constants
+    {
+        public static byte None = (byte)0;
+        public static byte EpsilonAny = (byte)1;
+        public static byte Any = (byte)2;
+    }
+
   /// <summary>
   /// Implements a non-deterministic finite automata
   /// </summary>
@@ -21,15 +28,6 @@ namespace LevenshteinAutomaton
         
         private int size;
 
-        /// <summary>
-        /// Provides default values for epsilon and none
-        /// </summary>
-        public enum Constants
-        {
-            EpsilonAny = 'ε',   //In Levenshtein NFA, the Epsilon edge is always also an Any edge.
-            None = '\0',
-            Any = 'θ'
-        }
 
         private LenvstnNFA()
         {
@@ -81,13 +79,13 @@ namespace LevenshteinAutomaton
                 for (int i = 0; i < width - 1; ++i)
                 {
                     //trans to right
-                    nfa.AddTrans(e * width + i, e * width + i + 1, str[i]);
+                    nfa.AddTrans(e * width + i, e * width + i + 1, (byte)str[i]);
                     if (e < (height - 1))
                     {
                         //trans to upper
-                        nfa.AddTrans(e * width + i, (e + 1) * width + i, (char)Constants.Any);
+                        nfa.AddTrans(e * width + i, (e + 1) * width + i, Constants.Any);
                         //trans to diagonal upper
-                        nfa.AddTrans(e * width + i, (e + 1) * width + i + 1, (char)Constants.EpsilonAny);
+                        nfa.AddTrans(e * width + i, (e + 1) * width + i + 1, Constants.EpsilonAny);
                     }
                 }
             }
@@ -96,7 +94,7 @@ namespace LevenshteinAutomaton
             for (int k = 1; k < height; ++k)
             {
                 //trans to upper
-                nfa.AddTrans(k * width - 1, (k + 1) * width - 1, (char)Constants.Any);
+                nfa.AddTrans(k * width - 1, (k + 1) * width - 1, Constants.Any);
             }
             return nfa;
         }
@@ -128,7 +126,7 @@ namespace LevenshteinAutomaton
             // But if parameter inp is a normal letter, will only return the result when truly found one bridge which equals to inp.
             bool needNormalLetter = false;
             bool findNormalLetter = false;
-            if (inp != (char)LenvstnNFA.Constants.Any && inp != (char)LenvstnNFA.Constants.EpsilonAny)
+            if (inp != Constants.Any && inp != Constants.EpsilonAny)
             {
                 needNormalLetter = true;
             }
@@ -140,7 +138,7 @@ namespace LevenshteinAutomaton
                 for (int j = 0; j < size; ++j)
                 {
                     // If the transition is on input inp, add it to the resulting set
-                    if (transTable[state][j] == inp || transTable[state][j] == (char)LenvstnNFA.Constants.Any || transTable[state][j] == (char)LenvstnNFA.Constants.EpsilonAny)
+                    if (transTable[state][j] == inp || transTable[state][j] == Constants.Any || transTable[state][j] == Constants.EpsilonAny)
                     {
                         if (needNormalLetter && transTable[state][j] == inp) findNormalLetter = true;
                         result.Add(j);

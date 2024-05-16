@@ -80,6 +80,7 @@ namespace LevenshteinAutomaton
             Console.WriteLine("-- IMPROVED --");
             //var generator = new NodeGenerator();
             //var collection = generator.Generate(wordLib);
+            //File.Delete("segment.dat");
             //collection.WriteToDisk();
 
             var collection = NodeCollection.FromDisk();
